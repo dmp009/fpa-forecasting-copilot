@@ -53,7 +53,8 @@ def commentary() -> tuple[dict, dict]:
 
 
 def gbp(x: float) -> str:
-    return f"£{x / 1e6:,.2f}m" if abs(x) >= 1e6 else f"£{x / 1e3:,.0f}k"
+    sign, x = ("-" if x < 0 else ""), abs(x)
+    return f"{sign}£{x / 1e6:,.2f}m" if x >= 1e6 else f"{sign}£{x / 1e3:,.0f}k"
 
 
 def footer() -> None:

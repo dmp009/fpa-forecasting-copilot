@@ -4,6 +4,8 @@
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
+**Live demo:** [fpa-forecasting-copilot.streamlit.app](https://fpa-forecasting-copilot.streamlit.app/) (Streamlit Community Cloud)
+
 A month-end close for a UK online retailer, built on its real sales: budget vs actual, a
 price / volume / mix bridge that explains the gap to the penny, a backtested forecast that gives
 the full-year landing, and a variance commentary in which every figure is checked against the
