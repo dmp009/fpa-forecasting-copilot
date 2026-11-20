@@ -1,0 +1,33 @@
+{
+  "scores": {
+    "seasonal_naive": {
+      "Europe": 0.186,
+      "Rest of world": 0.7152,
+      "Total": 0.0929,
+      "UK": 0.0895
+    },
+    "run_rate": {
+      "Europe": 0.1684,
+      "Rest of world": 1.1228,
+      "Total": 0.1118,
+      "UK": 0.1009
+    },
+    "gradient_boosting": {
+      "Europe": 0.3756,
+      "Rest of world": 1.1279,
+      "Total": 0.2812,
+      "UK": 0.2706
+    }
+  },
+  "landing": {
+    "best_method": "seasonal_naive",
+    "december_forecast": 787681.5600000002,
+    "ytd_actual": 8799506.520000001,
+    "full_year_landing": 9587188.080000002,
+    "full_year_budget": 10151767.059113361,
+    "december_budget": 676904.1916700791,
+    "december_partial_actual": 463211.7499999996,
+    "december_partial_forecast": 416089.71,
+    "partial_through": "2011-12-09"
+  }
+}

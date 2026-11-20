@@ -1,0 +1,10 @@
+{
+  "raw_rows": 1067371,
+  "duplicates_dropped": 34335,
+  "zero_price_product_lines_dropped": 5928,
+  "lines_product": 1003214,
+  "lines_return": 17914,
+  "lines_shipping": 3788,
+  "lines_other": 2192,
+  "clean_rows": 1027108
+}

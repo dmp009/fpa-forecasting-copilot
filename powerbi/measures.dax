@@ -1,0 +1,71 @@
+// FP&A copilot: DAX measures for the Power BI model described in powerbi/README.md.
+// Create a blank table named _Measures and paste each measure into it (Modeling > New measure).
+// All amounts are GBP. "Net revenue" = product sales + returns + shipping (fees and adjustments excluded).
+
+// ---------- Actuals (fact_sales, day grain) ----------
+Product Sales = CALCULATE ( SUM ( fact_sales[revenue] ), fact_sales[line_type] = "product" )
+Returns = CALCULATE ( SUM ( fact_sales[revenue] ), fact_sales[line_type] = "return" )
+Shipping Income = CALCULATE ( SUM ( fact_sales[revenue] ), fact_sales[line_type] = "shipping" )
+Net Revenue = [Product Sales] + [Returns] + [Shipping Income]
+Units Sold = CALCULATE ( SUM ( fact_sales[units] ), fact_sales[line_type] = "product" )
+Return Rate = DIVIDE ( -[Returns], [Product Sales] )
+
+// ---------- Budget (fact_budget, month grain) ----------
+Budget Product Sales = CALCULATE ( SUM ( fact_budget[revenue] ), fact_budget[line_type] = "product" )
+Budget Net Revenue = SUM ( fact_budget[revenue] )
+Budget Units = CALCULATE ( SUM ( fact_budget[units] ), fact_budget[line_type] = "product" )
+
+// ---------- Variance ----------
+Variance = [Net Revenue] - [Budget Net Revenue]
+Variance % = DIVIDE ( [Variance], ABS ( [Budget Net Revenue] ) )
+Variance Status = IF ( [Variance] >= 0, "Favourable", "Adverse" )
+
+// Year to date at the close (30 November 2011): the budget is only compared over closed months.
+Net Revenue YTD =
+VAR CloseDate = DATE ( 2011, 11, 30 )
+RETURN CALCULATE ( [Net Revenue], DATESYTD ( dim_date[date] ), dim_date[date] <= CloseDate )
+Budget Net Revenue YTD =
+VAR CloseDate = DATE ( 2011, 11, 30 )
+RETURN CALCULATE ( [Budget Net Revenue], DATESYTD ( dim_date[date] ), dim_date[date] <= CloseDate )
+Variance YTD = [Net Revenue YTD] - [Budget Net Revenue YTD]
+
+// ---------- Price / volume / mix (product sales, segment = region x category) ----------
+// Average budget price of the current filter context.
+Budget Price = DIVIDE ( [Budget Product Sales], [Budget Units] )
+Actual Price = DIVIDE ( [Product Sales], [Units Sold] )
+
+// Volume: change in total units at the overall budget price. Evaluate at total level.
+Volume Effect =
+VAR UAct = CALCULATE ( [Units Sold], ALLSELECTED ( dim_region ), ALLSELECTED ( dim_category ) )
+VAR UBud = CALCULATE ( [Budget Units], ALLSELECTED ( dim_region ), ALLSELECTED ( dim_category ) )
+VAR PBud = CALCULATE ( [Budget Price], ALLSELECTED ( dim_region ), ALLSELECTED ( dim_category ) )
+VAR Share = DIVIDE ( [Budget Units], UBud )
+RETURN ( UAct - UBud ) * Share * PBud
+
+// Mix: shift between region x category segments, each at its own budget price.
+Mix Effect =
+VAR UAct = CALCULATE ( [Units Sold], ALLSELECTED ( dim_region ), ALLSELECTED ( dim_category ) )
+VAR UBud = CALCULATE ( [Budget Units], ALLSELECTED ( dim_region ), ALLSELECTED ( dim_category ) )
+RETURN
+    SUMX (
+        CROSSJOIN ( VALUES ( dim_region[region] ), VALUES ( dim_category[category] ) ),
+        VAR p = COALESCE ( [Budget Price], [Actual Price] )
+        RETURN UAct * ( DIVIDE ( [Units Sold], UAct ) - DIVIDE ( [Budget Units], UBud ) ) * p
+    )
+
+// Price: actual units x (actual price - budget price), segment by segment.
+Price Effect =
+SUMX (
+    CROSSJOIN ( VALUES ( dim_region[region] ), VALUES ( dim_category[category] ) ),
+    VAR p = COALESCE ( [Budget Price], [Actual Price] )
+    RETURN [Units Sold] * ( COALESCE ( [Actual Price], 0 ) - p )
+)
+
+Returns Effect = [Returns] - CALCULATE ( SUM ( fact_budget[revenue] ), fact_budget[line_type] = "return" )
+Shipping Effect = [Shipping Income] - CALCULATE ( SUM ( fact_budget[revenue] ), fact_budget[line_type] = "shipping" )
+// Check: [Volume Effect] + [Mix Effect] + [Price Effect] + [Returns Effect] + [Shipping Effect] = [Variance]
+
+// ---------- Orders and customers (fact_invoices) ----------
+Orders = CALCULATE ( DISTINCTCOUNT ( fact_invoices[invoice] ), fact_invoices[cancelled] = FALSE () )
+Customers = CALCULATE ( DISTINCTCOUNT ( fact_invoices[customer_id] ), fact_invoices[cancelled] = FALSE () )
+Average Order Value = DIVIDE ( CALCULATE ( SUM ( fact_invoices[revenue] ), fact_invoices[cancelled] = FALSE () ), [Orders] )

@@ -1,0 +1,15 @@
+# FY2011 budget drivers, as a planner would set them in late 2010 from FY2010 actuals.
+# Budget units  = FY2010 units of the same month, region and category x (1 + volume growth)
+# Budget price  = FY2010 average price of that region and category x (1 + price increase)
+# Budget return rate and shipping income per region are FY2010 ratios held flat.
+volume_growth:      # by region
+  UK: 0.05          # home market, mature: in line with the online retail market
+  Europe: 0.12      # main expansion market (EIRE, Netherlands, Germany, France)
+  Rest of world: 0.08
+price_increase: 0.03  # list-price increase passed on 1 January 2011 (about UK CPI in 2010)
+category_volume_overrides:   # added to the region volume growth
+  Christmas & seasonal: 0.03  # range extended for Christmas 2011
+  Toys & kids: -0.02          # range reduced
+rationale: >-
+  Growth assumptions are deliberately simple and stated, so that every variance can be traced to a
+  driver. They are not fitted to 2011 data.

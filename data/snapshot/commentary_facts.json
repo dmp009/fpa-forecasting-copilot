@@ -1,0 +1,64 @@
+{
+  "period": "January to November 2011 (year to date at the 2011-11-30 close)",
+  "currency": "GBP",
+  "ytd": {
+    "net_revenue_actual": "\u00a38.80m",
+    "net_revenue_budget": "\u00a39.47m",
+    "variance": "-\u00a3675k",
+    "variance_pct": "-7.1%"
+  },
+  "bridge": {
+    "volume": "-\u00a31.11m",
+    "mix": "\u00a3250k",
+    "price": "\u00a3167k",
+    "returns": "-\u00a339k",
+    "shipping": "\u00a359k"
+  },
+  "regions": {
+    "Europe": {
+      "actual": "\u00a31.24m",
+      "budget": "\u00a31.37m",
+      "variance": "-\u00a3127k",
+      "variance_pct": "-9.3%"
+    },
+    "Rest of world": {
+      "actual": "\u00a3207k",
+      "budget": "\u00a385k",
+      "variance": "\u00a3122k",
+      "variance_pct": "+144.1%"
+    },
+    "UK": {
+      "actual": "\u00a37.35m",
+      "budget": "\u00a38.02m",
+      "variance": "-\u00a3670k",
+      "variance_pct": "-8.4%"
+    }
+  },
+  "categories": {
+    "largest_shortfall": {
+      "category": "Accessories & other",
+      "variance": "-\u00a3281k",
+      "volume": "-\u00a3114k"
+    },
+    "largest_beat": {
+      "category": "Kitchen & dining",
+      "variance": "\u00a3188k",
+      "mix": "\u00a3315k",
+      "price": "\u00a3172k"
+    }
+  },
+  "landing": {
+    "method": "Seasonal naive",
+    "december_forecast": "\u00a3788k",
+    "december_budget": "\u00a3677k",
+    "full_year_landing": "\u00a39.59m",
+    "full_year_budget": "\u00a310.15m",
+    "full_year_gap": "-\u00a3565k",
+    "full_year_gap_pct": "-5.6%"
+  },
+  "forecast_accuracy_wape": {
+    "Seasonal naive": "9.3%",
+    "Run-rate (FP&A)": "11.2%",
+    "Gradient boosting": "28.1%"
+  }
+}

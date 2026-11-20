@@ -1,0 +1,48 @@
+# Source data: UCI Machine Learning Repository, "Online Retail II" (Chen, 2012), CC BY 4.0.
+# A UK-based online retailer of gifts and homeware, mostly selling to wholesalers.
+source:
+  url: https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip
+  sha256: null  # filled by `make data` on first download and checked on every later one
+  citation: "Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D"
+  licence: CC BY 4.0
+currency: GBP
+
+# The FP&A calendar this project simulates
+budget_year: 2011          # the budget is set for FY2011 (calendar year)
+base_year: 2010            # ... from FY2010 actuals, as a planner would in late 2010
+close_date: "2011-11-30"   # month-end close: Jan-Nov 2011 are actuals
+landing_month: "2011-12"   # December is forecast to give the full-year "landing"
+
+# Markets: UK is the home market, the rest grouped as a planner would report them
+regions:
+  United Kingdom: UK
+  EIRE: Europe
+  Netherlands: Europe
+  Germany: Europe
+  France: Europe
+  Switzerland: Europe
+  Spain: Europe
+  Sweden: Europe
+  Denmark: Europe
+  Belgium: Europe
+  Portugal: Europe
+  Norway: Europe
+  Italy: Europe
+  Finland: Europe
+  Austria: Europe
+  Channel Islands: Europe
+  Cyprus: Europe
+  Greece: Europe
+  Poland: Europe
+  Iceland: Europe
+  Lithuania: Europe
+  Malta: Europe
+  Czech Republic: Europe
+  European Community: Europe
+  Unspecified: Rest of world
+  # every other country falls into "Rest of world"
+
+disclaimer: >-
+  Educational project. Actuals are real transactions from the UCI Online Retail II dataset;
+  the budget is built by this project from FY2010 actuals and stated assumptions, because no
+  company publishes its internal budget.
