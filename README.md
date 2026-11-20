@@ -11,6 +11,8 @@ price / volume / mix bridge that explains the gap to the penny, a backtested for
 the full-year landing, and a variance commentary in which every figure is checked against the
 numbers. Runs without an API key; the same star schema feeds a Streamlit app and a Power BI model.
 
+> **Why 2011 data?** Public datasets with real sales at transaction level (each invoice line with product, quantity, price and country) are rare: companies do not publish them. UCI Online Retail II is the standard open dataset of this kind, and it ends in December 2011. More recent public data is either aggregated (monthly totals, no prices or products) or synthetic. The 2011 dates are therefore a matter of data availability; the method (cleaning, driver-based budget, price / volume / mix bridge, backtested forecast, checked commentary) applies unchanged to current data.
+
 ## The business problem
 
 At each month-end an FP&A team has a few days to tell the finance director how revenue compares
@@ -121,4 +123,4 @@ L'atterrissage est de 9,59 M£ pour un budget annuel de 10,15 M£. Sur un backte
 méthode naïve saisonnière (WAPE 9,3 %) bat le modèle de gradient boosting (28,1 %) : avec deux ans
 d'historique, le modèle n'a vu qu'un seul mois de décembre. Le commentaire est rédigé par Claude à
 partir des seuls faits calculés, ou par un modèle de texte sans clé d'API. Le même schéma en étoile
-alimente une application Streamlit et un modèle Power BI (CSV et mesures DAX). Projet pédagogique.
+alimente une application Streamlit et un modèle Power BI (CSV et mesures DAX). Les données datent de 2009-2011 pour une raison de disponibilité : les jeux de données publics de ventes réelles au niveau de la transaction sont rares, et UCI Online Retail II, la référence, s'arrête en décembre 2011. La méthode s'applique telle quelle à des données récentes. Projet pédagogique.

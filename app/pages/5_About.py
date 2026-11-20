@@ -12,7 +12,11 @@ st.markdown(f"""
 the year will land. Most of that time goes into rebuilding the same bridge and writing the same commentary.
 
 **Data.** Real transactions of a UK online gift and homeware retailer (UCI Online Retail II, December 2009 to
-December 2011, about one million invoice lines, GBP). The data is cleaned (duplicates, cancellations, fees) and
+December 2011, about one million invoice lines, GBP).
+
+**Why 2011?** Data availability. Real sales at transaction level (each invoice line with product, quantity, price and
+country) are rarely published, and UCI Online Retail II, the standard open dataset of this kind, ends in December 2011.
+More recent public data is aggregated or synthetic. The method applies unchanged to current data. The data is cleaned (duplicates, cancellations, fees) and
 loaded into a star schema (DuckDB), the same model that is exported to Power BI.
 
 **Budget.** No company publishes its internal budget, so the FY2011 budget is built driver-based from FY2010 actuals:

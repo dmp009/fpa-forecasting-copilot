@@ -16,6 +16,8 @@ st.markdown(
     "**price / volume / mix bridge** that explains the gap, a **December forecast** that gives the "
     "full-year landing, and a **variance commentary** whose every figure is checked against the numbers."
 )
+st.caption("Real sales from 2009-2011: the most recent open dataset with transaction-level sales and prices "
+           "(see About). The method applies unchanged to current data.")
 
 act, bud = ytd()
 br = v.bridge(act, bud)
